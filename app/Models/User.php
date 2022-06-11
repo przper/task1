@@ -41,4 +41,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function swipes()
+    {
+        return $this->hasMany(Swipe::class, 'owner_id');
+    }
+
+    public function pairsAsFirst()
+    {
+        return $this->hasMany(Pair::class, 'first_user_id');
+    }
+
+    public function pairsAsSecond()
+    {
+        return $this->hasMany(Pair::class, 'second_user_id');
+    }
+
+    public function getPairsAttribute()
+    {
+        return $this->pairsAsFirst->merge($this->pairsAsSecond);
+    }
 }

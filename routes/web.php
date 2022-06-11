@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\SwipeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::resource('users', UserController::class)->only('show');
+Route::post('/users', SwipeController::class);
